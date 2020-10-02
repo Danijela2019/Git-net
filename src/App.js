@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Title from "./components/Title";
 import InfoCards from "./components/InfoCards";
 import NavigationBar from "./components/NavigationBar";
+import AlertField from "./components/AlertField";
 
 const App = () => {
   const [name, setName] = useState("");
@@ -14,6 +15,7 @@ const App = () => {
   const [following, setFollowing] = useState("");
   const [userInput, setUserInput] = useState("");
   const [githubLink, setGithubLink] = useState("");
+  const [error, setError] = useState(null);
   const [repos, setRepos] = useState([]);
 
   useEffect(() => {
@@ -44,6 +46,7 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchData(userInput);
+    setUserInput("");
   };
 
   const fetchData = (input) => {
@@ -51,30 +54,43 @@ const App = () => {
     const reposListUrl = fetch(`https://api.github.com/users/${input}/repos`);
     Promise.all([userDataUrl, reposListUrl])
       .then((res) => Promise.all(res.map((response) => response.json())))
-      .then((finaldata) => {
-        const userData = finaldata[0];
-        const reposListData = finaldata[1];
-        setUserData(userData);
-        setRepos(reposListData);
+      .then((finalData) => {
+        if (finalData[0].message) {
+          setError(finalData[0].message);
+        } else {
+          const userData = finalData[0];
+          const reposListData = finalData[1];
+          setUserData(userData);
+          setRepos(reposListData);
+          setError(null);
+        }
       })
       .catch((error) => console.log(error));
   };
 
   return (
     <Container fluid className="p-0 App">
-      <NavigationBar submit={handleSubmit} change={handleSearch} />
-      <Title />
-      <InfoCards
-        picture={avatar}
-        avatar={avatar}
-        name={name}
-        userName={userName}
-        numRepos={numberOfRepos}
-        gitLink={githubLink}
-        theFollowed={following}
-        theFollowers={followers}
-        repos={repos}
+      <NavigationBar
+        submit={handleSubmit}
+        change={handleSearch}
+        value={userInput}
       />
+      <Title />
+      {error ? (
+        <AlertField errorMessage={error} />
+      ) : (
+        <InfoCards
+          picture={avatar}
+          avatar={avatar}
+          name={name}
+          userName={userName}
+          numRepos={numberOfRepos}
+          gitLink={githubLink}
+          theFollowed={following}
+          theFollowers={followers}
+          repos={repos}
+        />
+      )}
       <Container fluid className="search-data"></Container>
     </Container>
   );
