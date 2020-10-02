@@ -5,6 +5,7 @@ import Title from "./components/Title";
 import InfoCards from "./components/InfoCards";
 import NavigationBar from "./components/NavigationBar";
 import AlertField from "./components/AlertField";
+import LoadingIndicator from "./components/LoadingIndicator";
 
 const App = () => {
   const [name, setName] = useState("");
@@ -16,6 +17,7 @@ const App = () => {
   const [userInput, setUserInput] = useState("");
   const [githubLink, setGithubLink] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [repos, setRepos] = useState([]);
 
   useEffect(() => {
@@ -50,16 +52,19 @@ const App = () => {
   };
 
   const fetchData = (input) => {
+    setLoading(true);
     const userDataUrl = fetch(`https://api.github.com/users/${input}`);
     const reposListUrl = fetch(`https://api.github.com/users/${input}/repos`);
     Promise.all([userDataUrl, reposListUrl])
       .then((res) => Promise.all(res.map((response) => response.json())))
       .then((finalData) => {
         if (finalData[0].message) {
+          setLoading(false);
           setError(finalData[0].message);
         } else {
           const userData = finalData[0];
           const reposListData = finalData[1];
+          setLoading(false);
           setUserData(userData);
           setRepos(reposListData);
           setError(null);
@@ -76,7 +81,9 @@ const App = () => {
         value={userInput}
       />
       <Title />
-      {error ? (
+      {loading ? (
+        <LoadingIndicator />
+      ) : error ? (
         <AlertField errorMessage={error} />
       ) : (
         <InfoCards
@@ -91,7 +98,6 @@ const App = () => {
           repos={repos}
         />
       )}
-      <Container fluid className="search-data"></Container>
     </Container>
   );
 };
