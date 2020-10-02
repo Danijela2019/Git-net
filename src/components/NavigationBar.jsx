@@ -23,6 +23,7 @@ const NavigationBar = (props) => {
         <FormControl
           type="text"
           placeholder="Search"
+          value={props.value}
           className="mr-sm-2"
           onChange={props.change}
         />
