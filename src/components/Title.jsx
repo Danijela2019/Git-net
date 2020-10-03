@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 
 const Title = () => {
   return (
-    <Jumbotron className="p-1 text-center mx-auto" fluid>
+    <Jumbotron className="pb-1 text-center " fluid>
       <Container>
         <h1>Welcome to Git-net</h1>
         <p>...a place to connect with other like-minded people... </p>
