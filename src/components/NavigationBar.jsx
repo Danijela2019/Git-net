@@ -4,25 +4,19 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
-import { IconContext } from "react-icons";
+import IconPlacer from "./IconPlacer";
 
 const NavigationBar = (props) => {
   return (
-    <Navbar bg="info" variant="dark" className="font-weight-bold">
-      <IconContext.Provider
-        value={{
-          style: { fontSize: "50px", color: "white", paddingRight: "1rem" },
-        }}
-      >
-        <div>
-          <GoMarkGithub />
-        </div>
-      </IconContext.Provider>
+    <Navbar bg="info" fixed="top" variant="dark" className="font-weight-bold">
+      <IconPlacer>
+        <GoMarkGithub />
+      </IconPlacer>
       <Navbar.Brand>GIT-NET</Navbar.Brand>
       <Form inline onSubmit={props.submit}>
         <FormControl
           type="text"
-          placeholder="Search"
+          placeholder="Github username"
           value={props.value}
           className="mr-sm-2"
           onChange={props.change}

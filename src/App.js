@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Container from "react-bootstrap/Container";
 import Title from "./components/Title";
-import InfoCards from "./components/InfoCards";
+import InfoBoard from "./components/InfoBoard";
 import NavigationBar from "./components/NavigationBar";
 import AlertField from "./components/AlertField";
 import LoadingIndicator from "./components/LoadingIndicator";
@@ -53,8 +53,9 @@ const App = () => {
 
   const fetchData = (input) => {
     setLoading(true);
-    const userDataUrl = fetch(`https://api.github.com/users/${input}`);
-    const reposListUrl = fetch(`https://api.github.com/users/${input}/repos`);
+    const url = `https://api.github.com/users/${input}`;
+    const userDataUrl = fetch(url);
+    const reposListUrl = fetch(`${url}/repos`);
     Promise.all([userDataUrl, reposListUrl])
       .then((res) => Promise.all(res.map((response) => response.json())))
       .then((finalData) => {
@@ -86,7 +87,7 @@ const App = () => {
       ) : error ? (
         <AlertField errorMessage={error} />
       ) : (
-        <InfoCards
+        <InfoBoard
           picture={avatar}
           avatar={avatar}
           name={name}
