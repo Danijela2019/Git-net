@@ -2,7 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import ListGroup from "react-bootstrap/ListGroup";
+import ReposList from "./ReposList";
 
 import {
   GoRepoForked,
@@ -12,26 +12,6 @@ import {
   GoGitBranch,
 } from "react-icons/go";
 import IconPlacer from "./IconPlacer";
-
-const ReposList = (props) => {
-  const allRepos = props.listedRepos;
-  const allReposList =
-    allRepos.legth !== 0 ? (
-      allRepos.slice(0, 6).map((item) => {
-        return (
-          <ListGroup.Item action variant="info" key={item.id}>
-            <a href={item.html_url}>{item.name}</a>
-          </ListGroup.Item>
-        );
-      })
-    ) : (
-      <ListGroup.Item action variant="info">
-        Empty repo
-      </ListGroup.Item>
-    );
-
-  return <ListGroup>{allReposList}</ListGroup>;
-};
 
 const InfoBoard = (props) => {
   return (
@@ -66,7 +46,11 @@ const InfoBoard = (props) => {
             <Card.Title className="p-1">
               Public git repos: {props.numRepos}
             </Card.Title>
-            <Button className="ml-auto" variant="outline-light">
+            <Button
+              onClick={props.viewRepos}
+              className="ml-auto"
+              variant="outline-light"
+            >
               View all public repos
             </Button>
           </Card.Body>
@@ -74,7 +58,7 @@ const InfoBoard = (props) => {
         <Card className="w-100 mt-3 mb-3 text-center" text="white" bg="info">
           <Card.Body className="d-inline-flex ">
             <IconPlacer className="p-1">
-              <GoOctoface />
+              <GoGitBranch />
             </IconPlacer>
             <Card.Title className="p-1">
               Number of following: {props.theFollowed}
@@ -107,10 +91,10 @@ const InfoBoard = (props) => {
       >
         <Card.Body>
           <IconPlacer>
-            <GoGitBranch />
+            <GoOctoface />
           </IconPlacer>
           <Card.Title>Most popular repos: </Card.Title>
-          <ReposList listedRepos={props.repos} />
+          <ReposList repos={props.repos.slice(0, 6)} />
         </Card.Body>
       </Card>
     </Container>

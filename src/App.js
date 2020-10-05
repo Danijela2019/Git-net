@@ -5,6 +5,7 @@ import InfoBoard from "./components/InfoBoard";
 import NavigationBar from "./components/NavigationBar";
 import AlertField from "./components/AlertField";
 import LoadingIndicator from "./components/LoadingIndicator";
+import AllReposBoard from "./components/AllReposBoard";
 
 const App = () => {
   const [name, setName] = useState("");
@@ -18,6 +19,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [repos, setRepos] = useState([]);
+  const [allReposInfo, setAllReposInfo] = useState(false);
 
   useEffect(() => {
     fetchData("example");
@@ -48,6 +50,11 @@ const App = () => {
     e.preventDefault();
     fetchData(userInput);
     setUserInput("");
+    setAllReposInfo(false);
+  };
+
+  const viewAllRepos = () => {
+    setAllReposInfo(true);
   };
 
   const fetchData = (input) => {
@@ -96,8 +103,10 @@ const App = () => {
           theFollowed={following}
           theFollowers={followers}
           repos={repos}
+          viewRepos={viewAllRepos}
         />
       )}
+      {allReposInfo ? <AllReposBoard repos={repos} /> : null}
     </Container>
   );
 };
