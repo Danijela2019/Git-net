@@ -1,9 +1,5 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
-import ReposList from "./ReposList";
-
+import { Card, Container, Button } from "react-bootstrap";
 import {
   GoRepoForked,
   GoOctoface,
@@ -11,16 +7,28 @@ import {
   GoGitPullRequest,
   GoGitBranch,
 } from "react-icons/go";
+
+import ReposList from "./ReposList";
 import IconPlacer from "./IconPlacer";
 
-const InfoBoard = (props) => {
+const InfoBoard = ({
+  picture,
+  name,
+  gitLink,
+  userName,
+  numRepos,
+  viewRepos,
+  theFollowed,
+  theFollowers,
+  repos,
+}) => {
   return (
     <Container fluid className="d-inline-flex  pb-2">
       <Card className="bg-info " text="white" style={{ width: "30rem" }}>
-        <Card.Img variant="top" src={props.picture} />
+        <Card.Img variant="top" src={picture} />
         <Card.Body className="pt-4  text-center mx-auto">
-          <Card.Title>{props.name}</Card.Title>
-          <Button variant="outline-light" href={props.gitLink}>
+          <Card.Title>{name}</Card.Title>
+          <Button variant="outline-light" href={gitLink}>
             {" "}
             View profile
           </Button>
@@ -34,7 +42,7 @@ const InfoBoard = (props) => {
               <GoRepoForked />
             </IconPlacer>
             <Card.Title className="p-1">
-              Git-hub user name: {props.userName}
+              Git-hub user name: {userName}
             </Card.Title>
           </Card.Body>
         </Card>
@@ -44,10 +52,10 @@ const InfoBoard = (props) => {
               <GoGitPullRequest />
             </IconPlacer>
             <Card.Title className="p-1">
-              Public git repos: {props.numRepos}
+              Public git repos: {numRepos}
             </Card.Title>
             <Button
-              onClick={props.viewRepos}
+              onClick={viewRepos}
               className="ml-auto"
               variant="outline-light"
             >
@@ -61,11 +69,8 @@ const InfoBoard = (props) => {
               <GoGitBranch />
             </IconPlacer>
             <Card.Title className="p-1">
-              Number of following: {props.theFollowed}
+              Number of following: {theFollowed}
             </Card.Title>
-            <Button className="ml-auto" variant="outline-light">
-              View all followed
-            </Button>
           </Card.Body>
         </Card>
         <Card className=" w-100 text-center" bg="info" text="white">
@@ -74,11 +79,8 @@ const InfoBoard = (props) => {
               <GoGitMerge />
             </IconPlacer>
             <Card.Title className="p-1">
-              Number of followers: {props.theFollowers}
+              Number of followers: {theFollowers}
             </Card.Title>
-            <Button className="ml-auto" variant="outline-light">
-              View all followers
-            </Button>
           </Card.Body>
         </Card>
       </Container>
@@ -94,7 +96,7 @@ const InfoBoard = (props) => {
             <GoOctoface />
           </IconPlacer>
           <Card.Title>Most popular repos: </Card.Title>
-          <ReposList repos={props.repos.slice(0, 6)} />
+          <ReposList repos={repos.slice(0, 6)} />
         </Card.Body>
       </Card>
     </Container>

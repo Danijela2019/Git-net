@@ -1,9 +1,8 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
-import ListGroup from "react-bootstrap/ListGroup";
+import { Container, ListGroup } from "react-bootstrap";
 
-const ReposData = (props) => {
-  const allRepos = props.repos1;
+const ReposData = ({ repos1 }) => {
+  const allRepos = repos1;
   const allReposList =
     allRepos.length !== 0 ? (
       allRepos.map((item) => {
@@ -31,10 +30,10 @@ const ReposData = (props) => {
   return <ListGroup>{allReposList}</ListGroup>;
 };
 
-const AllReposBoard = (props) => {
+const AllReposBoard = ({ repos }) => {
   return (
     <Container fluid>
-      <ReposData repos1={props.repos}> {props.repos.repos1}</ReposData>
+      <ReposData repos1={repos}> {repos.repos1}</ReposData>
     </Container>
   );
 };

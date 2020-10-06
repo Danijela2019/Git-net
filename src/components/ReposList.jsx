@@ -1,8 +1,8 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 
-const ReposList = (props) => {
-  const allRepos = props.repos;
+const ReposList = ({ repos }) => {
+  const allRepos = repos;
   const allReposList =
     allRepos.length !== 0 ? (
       allRepos.map((item) => {

@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
-import Title from "./components/Title";
-import InfoBoard from "./components/InfoBoard";
-import NavigationBar from "./components/NavigationBar";
-import AlertField from "./components/AlertField";
-import LoadingIndicator from "./components/LoadingIndicator";
-import AllReposBoard from "./components/AllReposBoard";
+
+import Title from "./Title";
+import InfoBoard from "./InfoBoard";
+import NavigationBar from "./NavigationBar";
+import AlertField from "./AlertField";
+import LoadingIndicator from "./LoadingIndicator";
+import AllReposBoard from "./AllReposBoard";
 
 const App = () => {
-  const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [numberOfRepos, setNumberOfRepos] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [followers, setFollowers] = useState("");
-  const [following, setFollowing] = useState("");
+  const [data, setData] = useState({
+    name: "",
+    userName: "",
+    numberOfRepos: "",
+    avatar: "",
+    followers: "",
+    following: "",
+    gitHubLink: "",
+  });
   const [userInput, setUserInput] = useState("");
-  const [githubLink, setGithubLink] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [repos, setRepos] = useState([]);
@@ -34,13 +37,16 @@ const App = () => {
     followers,
     following,
   }) => {
-    setName(name);
-    setUserName(login);
-    setNumberOfRepos(public_repos);
-    setAvatar(avatar_url);
-    setGithubLink(html_url);
-    setFollowers(followers);
-    setFollowing(following);
+    setData({
+      ...data,
+      name: name,
+      userName: login,
+      numberOfRepos: public_repos,
+      avatar: avatar_url,
+      followers: followers,
+      following: following,
+      githubLink: html_url,
+    });
   };
 
   const handleSearch = (e) => {
@@ -59,9 +65,8 @@ const App = () => {
 
   const fetchData = (input) => {
     setLoading(true);
-    const url = `https://api.github.com/users/${input}`;
-    const userDataUrl = fetch(url);
-    const reposListUrl = fetch(`${url}/repos`);
+    const userDataUrl = fetch(`https://api.github.com/users/${input}`);
+    const reposListUrl = fetch(`https://api.github.com/users/${input}/repos`);
     Promise.all([userDataUrl, reposListUrl])
       .then((res) => Promise.all(res.map((response) => response.json())))
       .then((finalData) => {
@@ -94,14 +99,13 @@ const App = () => {
         <AlertField errorMessage={error} />
       ) : (
         <InfoBoard
-          picture={avatar}
-          avatar={avatar}
-          name={name}
-          userName={userName}
-          numRepos={numberOfRepos}
-          gitLink={githubLink}
-          theFollowed={following}
-          theFollowers={followers}
+          picture={data.avatar}
+          name={data.name}
+          userName={data.userName}
+          numRepos={data.numberOfRepos}
+          gitLink={data.githubLink}
+          theFollowed={data.following}
+          theFollowers={data.followers}
           repos={repos}
           viewRepos={viewAllRepos}
         />

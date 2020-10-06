@@ -1,28 +1,19 @@
 import React from "react";
 import { GoAlert } from "react-icons/go";
 import Alert from "react-bootstrap/Alert";
-import { IconContext } from "react-icons";
 
-const AlertField = (props) => {
+import IconPlacer from "./IconPlacer";
+
+const AlertField = (errorMessage) => {
   return (
     <Alert variant="info" className="text-center">
-      <IconContext.Provider
-        value={{
-          style: {
-            fontSize: "40px",
-            color: "white",
-            paddingRight: "1rem",
-          },
-        }}
-      >
-        <div>
-          <GoAlert />
-        </div>
-      </IconContext.Provider>
+      <IconPlacer>
+        <GoAlert />
+      </IconPlacer>
       <Alert.Heading>Hmm, something went wrong here</Alert.Heading>
       <p>
         Aww yeah, we got and error: {""}
-        {props.errorMessage}
+        {errorMessage}
       </p>
     </Alert>
   );

@@ -1,7 +1,7 @@
 import { IconContext } from "react-icons";
 import React from "react";
 
-const IconPlacer = (props) => {
+const IconPlacer = ({ children }) => {
   return (
     <IconContext.Provider
       value={{
@@ -12,7 +12,7 @@ const IconPlacer = (props) => {
         },
       }}
     >
-      <div>{props.children}</div>
+      <div>{children}</div>
     </IconContext.Provider>
   );
 };
