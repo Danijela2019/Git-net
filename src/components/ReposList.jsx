@@ -14,7 +14,7 @@ const ReposList = ({ repos }) => {
       })
     ) : (
       <ListGroup.Item action variant="info">
-        Empty repo
+        No public repos available
       </ListGroup.Item>
     );
   return <ListGroup>{allReposList}</ListGroup>;
