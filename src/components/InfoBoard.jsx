@@ -95,7 +95,7 @@ const InfoBoard = ({
           <IconPlacer>
             <GoOctoface />
           </IconPlacer>
-          <Card.Title>Most popular repos: </Card.Title>
+          <Card.Title>Top six repos: </Card.Title>
           <ReposList repos={repos.slice(0, 6)} />
         </Card.Body>
       </Card>

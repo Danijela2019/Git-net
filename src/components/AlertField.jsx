@@ -4,7 +4,7 @@ import Alert from "react-bootstrap/Alert";
 
 import IconPlacer from "./IconPlacer";
 
-const AlertField = (errorMessage) => {
+const AlertField = (props) => {
   return (
     <Alert variant="info" className="text-center">
       <IconPlacer>
@@ -13,7 +13,7 @@ const AlertField = (errorMessage) => {
       <Alert.Heading>Hmm, something went wrong here</Alert.Heading>
       <p>
         Aww yeah, we got and error: {""}
-        {errorMessage}
+        {props.errorMessage}
       </p>
     </Alert>
   );
