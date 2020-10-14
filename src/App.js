@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 
-import Title from "./Title";
-import InfoBoard from "./InfoBoard";
-import NavigationBar from "./NavigationBar";
-import AlertField from "./AlertField";
-import LoadingIndicator from "./LoadingIndicator";
-import AllReposBoard from "./AllReposBoard";
+import Title from "./components/Title";
+import InfoBoard from "./components/InfoBoard";
+import NavigationBar from "./components/NavigationBar";
+import AlertField from "./components/AlertField";
+import LoadingIndicator from "./components/LoadingIndicator";
+import AllReposBoard from "./components/AllReposBoard";
 
 const App = () => {
   const [data, setData] = useState({
