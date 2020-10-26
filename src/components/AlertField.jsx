@@ -10,7 +10,7 @@ const AlertField = (props) => {
       <IconPlacer>
         <GoAlert />
       </IconPlacer>
-      <Alert.Heading>Hmm, something went wrong here</Alert.Heading>
+      <Alert.Heading>Hmmm, something went wrong here</Alert.Heading>
       <p>
         Aww yeah, we got and error: {""}
         {props.errorMessage}
