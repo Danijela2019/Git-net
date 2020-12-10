@@ -3,6 +3,7 @@
 ## Introduction
 
 This is a small application for searching github users, using the Github API and get some usefull data about them.The project was created using React and styled with the React Bootstrap library.
+#### Proview of the app is available [here](https://githubnet.netlify.app)
 
 ## Functionality:
 
