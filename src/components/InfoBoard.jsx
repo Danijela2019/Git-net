@@ -23,8 +23,8 @@ const InfoBoard = ({
   repos,
 }) => {
   return (
-    <Container fluid className="d-inline-flex  pb-2">
-      <Card className="bg-info " text="white" style={{ width: "30rem" }}>
+    <Container fluid className="d-inline-flex  flex-column flex-md-row  pb-2">
+      <Card className="bg-info mw-100" text="white">
         <Card.Img variant="top" src={picture} />
         <Card.Body className="pt-4  text-center mx-auto">
           <Card.Title>{name}</Card.Title>
@@ -35,7 +35,7 @@ const InfoBoard = ({
         </Card.Body>
       </Card>
 
-      <Container>
+      <Container fluid className="w-100 p-0 p-md-4 ">
         <Card className="w-100 mt-3 mb-3 text-center" text="white" bg="info">
           <Card.Body className="d-inline-flex">
             <IconPlacer className="p-1">
@@ -86,10 +86,9 @@ const InfoBoard = ({
       </Container>
 
       <Card
-        className="text-center "
+        className="text-center mt-4 mt-md-0 w-100 w-md-30"
         bg="info"
         text="white"
-        style={{ width: "30rem" }}
       >
         <Card.Body>
           <IconPlacer>
