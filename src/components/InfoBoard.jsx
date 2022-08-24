@@ -23,7 +23,10 @@ const InfoBoard = ({
   repos,
 }) => {
   return (
-    <Container fluid className="d-inline-flex  flex-column flex-md-row  pb-2">
+    <Container
+      fluid
+      className="d-inline-flex  flex-column flex-md-row  mt-4 pb-2"
+    >
       <Card className="bg-info mw-100" text="white">
         <Card.Img variant="top" src={picture} />
         <Card.Body className="pt-4  text-center mx-auto">
@@ -73,7 +76,7 @@ const InfoBoard = ({
             </Card.Title>
           </Card.Body>
         </Card>
-        <Card className=" w-100 text-center" bg="info" text="white">
+        <Card className=" w-md-60 text-center" bg="info" text="white">
           <Card.Body className="d-inline-flex ">
             <IconPlacer className="p-1">
               <GoGitMerge />
@@ -86,7 +89,8 @@ const InfoBoard = ({
       </Container>
 
       <Card
-        className="text-center mt-4 mt-md-0 w-100 w-md-30"
+        className="text-center mt-3 mt-md-0 w-md-30"
+        style={{ minWidth: "300px" }}
         bg="info"
         text="white"
       >

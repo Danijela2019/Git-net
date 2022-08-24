@@ -9,7 +9,7 @@ const NavigationBar = ({ submit, value, change }) => {
     <Navbar
       bg="info"
       variant="dark"
-      className="font-weight-bold d-flex flex-column flex-md-row"
+      className="font-weight-bold d-flex flex-column flex-md-row px-3 px-md-8"
     >
       <IconPlacer>
         <GoMarkGithub />
