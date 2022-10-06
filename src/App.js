@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Container from "react-bootstrap/Container";
 
 import Title from "./components/Title";
@@ -24,47 +24,31 @@ const App = () => {
   const [repos, setRepos] = useState([]);
   const [allReposInfo, setAllReposInfo] = useState(false);
 
-  useEffect(() => {
-    fetchData("example");
-  }, []);
-
-  const setUserData = ({
-    name,
-    login,
-    public_repos,
-    avatar_url,
-    html_url,
-    followers,
-    following,
-  }) => {
-    setData({
-      ...data,
-      name: name,
-      userName: login,
-      numberOfRepos: public_repos,
-      avatar: avatar_url,
-      followers: followers,
-      following: following,
-      githubLink: html_url,
-    });
-  };
-
-  const handleSearch = (e) => {
-    setUserInput(e.target.value);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetchData(userInput);
-    setUserInput("");
-    setAllReposInfo(false);
-  };
-
-  const viewAllRepos = () => {
-    setAllReposInfo(true);
-  };
-
-  const fetchData = (input) => {
+  const fetchData = useCallback((input) => {
     setLoading(true);
+    const setUserData = ({
+      name,
+      login,
+      public_repos,
+      avatar_url,
+      html_url,
+      followers,
+      following,
+    }) => {
+      setData((prevData) => {
+        return {
+          ...prevData,
+          name: name,
+          userName: login,
+          numberOfRepos: public_repos,
+          avatar: avatar_url,
+          followers: followers,
+          following: following,
+          githubLink: html_url,
+        };
+      });
+    };
+
     const userDataUrl = fetch(`https://api.github.com/users/${input}`);
     const reposListUrl = fetch(`https://api.github.com/users/${input}/repos`);
     Promise.all([userDataUrl, reposListUrl])
@@ -83,6 +67,24 @@ const App = () => {
         }
       })
       .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    fetchData("example");
+  }, [fetchData]);
+
+  const handleSearch = (e) => {
+    setUserInput(e.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchData(userInput);
+    setUserInput("");
+    setAllReposInfo(false);
+  };
+
+  const viewAllRepos = () => {
+    setAllReposInfo(true);
   };
 
   return (
